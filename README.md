@@ -33,7 +33,7 @@ Fully open-source and optimized for performance.
 ## 📦 Installation
 
 ```sh
-git clone https://github.com/<username>/rednote-api.git
+git clone https://github.com/hostinger-bot/rednote-api.git
 cd rednote-api
 cargo build
 cargo build --release
@@ -169,4 +169,4 @@ MIT License © 2025 Tio (BOTCAHX)
 
 ## ⭐ Support
 
-Give this project a ★ on [GitHub](https://github.com/<username>/rednote-api).
+Give this project a ★ on [GitHub](https://github.com/hostinger-bot/rednote-api).
