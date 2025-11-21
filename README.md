@@ -1,6 +1,6 @@
 ### Rednote (Xiaohongshu / 小红书) Unofficial API
 
-Fast, free, and open-source Rednote video/image downloader built with Rust + Axum.
+Fast, free, and open-source Rednote (小红书) video/image downloader built with Rust + Axum.
 
 ---
 
