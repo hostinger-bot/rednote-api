@@ -5,10 +5,14 @@ Fast, free, and open-source Rednote (小红书) video/image downloader built wit
   <a href="https://github.com/hostinger-bot/rednote-api/actions/workflows/rust.yml">
     <img src="https://github.com/hostinger-bot/rednote-api/actions/workflows/rust.yml/badge.svg" alt="Rust" />
   </a>
+</p>
+
+<p align="center">
   <a href="https://github.com/hostinger-bot/rednote-api/actions/workflows/rust-clippy.yml">
     <img src="https://github.com/hostinger-bot/rednote-api/actions/workflows/rust-clippy.yml/badge.svg" alt="rust-clippy" />
   </a>
 </p>
+
 
 ---
 
