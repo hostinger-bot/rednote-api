@@ -1,6 +1,14 @@
-### Rednote (Xiaohongshu / 小红书) Unofficial API
+## Rednote (Xiaohongshu / 小红书) Unofficial API
 
 Fast, free, and open-source Rednote (小红书) video/image downloader built with Rust + Axum.
+<p align="center">
+  <a href="https://github.com/hostinger-bot/rednote-api/actions/workflows/rust.yml">
+    <img src="https://github.com/hostinger-bot/rednote-api/actions/workflows/rust.yml/badge.svg" alt="Rust" />
+  </a>
+  <a href="https://github.com/hostinger-bot/rednote-api/actions/workflows/rust-clippy.yml">
+    <img src="https://github.com/hostinger-bot/rednote-api/actions/workflows/rust-clippy.yml/badge.svg" alt="rust-clippy" />
+  </a>
+</p>
 
 ---
 
