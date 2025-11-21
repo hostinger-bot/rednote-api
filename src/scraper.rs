@@ -47,7 +47,6 @@ fn capture_multi(html: &str, pattern: &str) -> Vec<String> {
 }
 
 pub async fn scrape(url: String) -> Result<RednoteResult, String> {
-    // --- Headers Chrome lengkap seperti axios ---
     let mut headers = HeaderMap::new();
     headers.insert("Accept", "*/*".parse().unwrap());
     headers.insert("Accept-Language", "en-US,en;q=0.9".parse().unwrap());
@@ -82,9 +81,6 @@ pub async fn scrape(url: String) -> Result<RednoteResult, String> {
         .await
         .map_err(|e| format!("Read HTML failed: {}", e))?;
 
-    // println!("{}", html); // DEBUG — kalau masih error, aktifkan
-
-    // --- Parsing persis seperti TypeScript ---
     let title = capture_single(&html, r#"(?is)<title>(.*?)</title>"#);
     let desc = capture_single(
         &html,
@@ -113,13 +109,11 @@ pub async fn scrape(url: String) -> Result<RednoteResult, String> {
     );
     let nickname = og_title.split(" - ").next().unwrap_or("").to_string();
 
-    // semua og:image
     let images = capture_multi(
         &html,
         r#"(?is)<meta[^>]*name="og:image"[^>]*content="(.*?)""#,
     );
 
-    // engagement
     let comments = capture_single(
         &html,
         r#"(?is)<meta[^>]*name="og:xhs:note_comment"[^>]*content="(.*?)""#,
@@ -133,7 +127,6 @@ pub async fn scrape(url: String) -> Result<RednoteResult, String> {
         r#"(?is)<meta[^>]*name="og:xhs:note_collect"[^>]*content="(.*?)""#,
     );
 
-    // downloads
     let downloads = if !video_url.is_empty() {
         vec![RednoteDownload {
             quality: "Original".to_string(),
