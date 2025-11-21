@@ -1,0 +1,13 @@
+[package]
+name = "rednote-api"
+version = "1.0.0"
+edition = "2021"
+
+[dependencies]
+axum = "0.7"
+tokio = { version = "1", features = ["full"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+reqwest = { version = "0.12", features = ["gzip", "brotli"] }
+regex = "1"
+tower-http = { version = "0.5", features = ["cors"] }

@@ -1,0 +1,146 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Rednote (Xiaohongshu) Unofficial API",
+    "version": "1.0.0",
+    "description": "Fast & free Rednote video/image downloader",
+    "contact": {
+      "name": "Tio",
+      "email": "support@tioprm.eu.org",
+      "url": "https://tio.is-a.dev"
+    },
+    "license": {
+      "name": "MIT"
+    }
+  },
+  "servers": [
+    { "url": "/" }
+  ],
+  "paths": {
+    "/api/rednote": {
+      "get": {
+        "summary": "Download Rednote video/image",
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "required": true,
+            "schema": { "type": "string" },
+            "example": "http://xhslink.com/o/2jqifpr7GJ5"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "example": {
+                  "noteId": "string",
+                  "nickname": "string",
+                  "title": "string",
+                  "desc": "string",
+                  "keywords": "string",
+                  "duration": "string",
+                  "engagement": {
+                    "likes": "string",
+                    "comments": "string",
+                    "collects": "string"
+                  },
+                  "images": [
+                    "string"
+                  ],
+                  "downloads": [
+                    {
+                      "quality": "string",
+                      "url": "string"
+                    }
+                  ],
+                  "status": true
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid Xiaohongshu URL",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": false,
+                  "error": "Invalid Xiaohongshu URL"
+                }
+              }
+            }
+          }
+        }
+      },
+
+      "post": {
+        "summary": "Download Rednote video/image (recommended)",
+        "description": "Submit Xiaohongshu post URL via JSON body (better for long URLs & privacy)",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "url": {
+                    "type": "string",
+                    "example": "http://xhslink.com/o/2jqifpr7GJ5"
+                  }
+                },
+                "required": ["url"]
+              },
+              "example": {
+                "url": "http://xhslink.com/o/2jqifpr7GJ5"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "example": {
+                  "noteId": "string",
+                  "nickname": "string",
+                  "title": "string",
+                  "desc": "string",
+                  "keywords": "string",
+                  "duration": "string",
+                  "engagement": {
+                    "likes": "string",
+                    "comments": "string",
+                    "collects": "string"
+                  },
+                  "images": [
+                    "string"
+                  ],
+                  "downloads": [
+                    {
+                      "quality": "string",
+                      "url": "string"
+                    }
+                  ],
+                  "status": true
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid Xiaohongshu URL",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": false,
+                  "error": "Invalid Xiaohongshu URL"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
