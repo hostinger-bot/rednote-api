@@ -96,13 +96,13 @@ async fn docs() -> Html<String> {
     tokio::fs::read_to_string("templates/docs.html")
         .await
         .map(Html)
-        .unwrap_or_else(|_| Html("<h1>docs.html tidak ditemukan</h1>".into()))
+        .unwrap_or_else(|_| Html("<h1>docs.html not found!</h1>".into()))
 }
 
 async fn openapi_json() -> impl IntoResponse {
     match tokio::fs::read_to_string("static/openapi.json").await {
         Ok(content) => ([(header::CONTENT_TYPE, "application/json")], content).into_response(),
-        Err(_) => (StatusCode::NOT_FOUND, "openapi.json tidak ada").into_response(),
+        Err(_) => (StatusCode::NOT_FOUND, "openapi.json not found!").into_response(),
     }
 }
 
