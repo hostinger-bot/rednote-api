@@ -2,8 +2,7 @@ mod scraper;
 
 use axum::{
     extract::{Json, Query},
-    http::{header, Request, StatusCode},
-    middleware::{self, Next},
+    http::{header, StatusCode},
     response::{Html, IntoResponse},
     routing::get,
     Router,
@@ -11,21 +10,33 @@ use axum::{
 use scraper::{is_valid_rednote_url, scrape};
 use serde::Deserialize;
 use serde_json::{json, to_string_pretty};
-use std::{env, net::SocketAddr, time::Instant};
+use std::{env, time::Instant};
 use tower_http::cors::CorsLayer;
+use rust_embed::RustEmbed;
+use tokio::net::TcpListener;
 
 #[derive(Deserialize)]
 struct Params {
     url: String,
 }
 
-async fn logging_middleware(req: Request<axum::body::Body>, next: Next) -> impl IntoResponse {
+#[derive(RustEmbed)]
+#[folder = "templates/"]
+struct Templates;
+
+#[derive(RustEmbed)]
+#[folder = "static/"]
+struct StaticFiles;
+
+async fn logging_middleware(
+    req: axum::http::Request<axum::body::Body>,
+    next: axum::middleware::Next,
+) -> impl IntoResponse {
     let start = Instant::now();
     let method = req.method().clone();
     let uri = req.uri().to_string();
 
     eprintln!(">>> {method} {uri}");
-
     let response = next.run(req).await;
 
     let duration = start.elapsed();
@@ -92,17 +103,21 @@ async fn process_url(url: String) -> impl IntoResponse {
     }
 }
 
-async fn docs() -> Html<String> {
-    tokio::fs::read_to_string("templates/docs.html")
-        .await
-        .map(Html)
-        .unwrap_or_else(|_| Html("<h1>docs.html not found!</h1>".into()))
+async fn docs() -> impl IntoResponse {
+    match Templates::get("docs.html") {
+        Some(content) => Html(String::from_utf8_lossy(content.data.as_ref()).to_string()),
+        None => Html("<h1>docs.html not found!</h1>".to_string()),
+    }
 }
 
 async fn openapi_json() -> impl IntoResponse {
-    match tokio::fs::read_to_string("static/openapi.json").await {
-        Ok(content) => ([(header::CONTENT_TYPE, "application/json")], content).into_response(),
-        Err(_) => (StatusCode::NOT_FOUND, "openapi.json not found!").into_response(),
+    match StaticFiles::get("openapi.json") {
+        Some(content) => (
+            [(header::CONTENT_TYPE, "application/json")],
+            String::from_utf8_lossy(content.data.as_ref()).to_string(),
+        )
+            .into_response(),
+        None => (StatusCode::NOT_FOUND, "openapi.json not found!").into_response(),
     }
 }
 
@@ -117,7 +132,7 @@ async fn main() {
         .and_then(|s| s.parse().ok())
         .unwrap_or(8080);
 
-    let addr = SocketAddr::from(([0, 0, 0, 0], port));
+    let listener = TcpListener::bind(format!("0.0.0.0:{port}")).await.unwrap();
     println!("Server running on http://localhost:{port}");
 
     let app = Router::new()
@@ -127,8 +142,7 @@ async fn main() {
         .route("/openapi.json", get(openapi_json))
         .fallback(not_found)
         .layer(CorsLayer::permissive())
-        .layer(middleware::from_fn(logging_middleware));
+        .layer(axum::middleware::from_fn(logging_middleware));
 
-    let listener = tokio::net::TcpListener::bind(&addr).await.unwrap();
     axum::serve(listener, app).await.unwrap();
 }

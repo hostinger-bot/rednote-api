@@ -16,10 +16,6 @@ WORKDIR /app
 RUN apt-get update && apt-get install -y ca-certificates libssl-dev && rm -rf /var/lib/apt/lists/*
 
 COPY --from=builder /app/target/release/rednote-api /usr/local/bin/rednote-api
-COPY --from=builder /app/static /app/static
-COPY --from=builder /app/templates /app/templates
-
 ENV PORT 8080
 EXPOSE 8080
-
 ENTRYPOINT ["/usr/local/bin/rednote-api"]
