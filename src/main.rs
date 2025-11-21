@@ -115,7 +115,7 @@ async fn main() {
     let port = env::var("PORT")
         .ok()
         .and_then(|s| s.parse().ok())
-        .unwrap_or(4000);
+        .unwrap_or(8080);
 
     let addr = SocketAddr::from(([0, 0, 0, 0], port));
     println!("Server running on http://localhost:{port}");
