@@ -86,7 +86,7 @@
                 "properties": {
                   "url": {
                     "type": "string",
-                    "example": "http://xhslink.com/o/2jqifpr7GJ5"
+                    "example": "http://xhslink.com/o/21DKXV988zp"
                   }
                 },
                 "required": ["url"]
