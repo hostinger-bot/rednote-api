@@ -86,7 +86,7 @@ Query Parameters:
 
 Example:
 ```
-/api/rednote?url=http://xhslink.com/o/2jqifpr7GJ5
+/api/rednote?url=http://xhslink.com/o/21DKXV988zp
 ```
 
 ### POST /api/rednote
@@ -95,7 +95,7 @@ Body:
 
 ```json
 {
-  "url": "http://xhslink.com/o/2jqifpr7GJ5"
+  "url": "http://xhslink.com/o/21DKXV988zp"
 }
 ```
 
@@ -105,27 +105,22 @@ Body:
 
 ```json
 {
-  "noteId": "6810c9a3000000002300ed1e",
-  "nickname": "我想你的夜 (Wǒ xiǎng nǐ de yè)",
-  "title": "我想你的夜 - 小红书",
-  "desc": "最近无聊的时候写了一段歌词...",
-  "keywords": "music, sunoai",
-  "duration": "03:20",
+  "desc": "这碗面不仅是食物，更是快乐的来源！好吃到想每天吃!",
+  "downloads": [],
+  "duration": "",
   "engagement": {
-    "likes": "4",
+    "collects": "0",
     "comments": "2",
-    "collects": "0"
+    "likes": "1"
   },
   "images": [
-    "https://..."
+    "http://sns-webpic-qc.xhscdn.com/202601081924/6bd0dbeff2d295034320d652e5920a11/1040g00831ej7ki91h26g5ps768227md5hqjjk70!nd_dft_wlteh_jpg_3"
   ],
-  "downloads": [
-    {
-      "quality": "Original",
-      "url": "https://..."
-    }
-  ],
-  "status": true
+  "keywords": "",
+  "nickname": "这碗面不仅是食物，更是快乐的来源！好吃到想每天吃!",
+  "noteId": "67c6308c000000002a00fff2",
+  "status": true,
+  "title": "这碗面不仅是食物，更是快乐的来源！好吃到想每天吃! - 小红书"
 }
 ```
 
